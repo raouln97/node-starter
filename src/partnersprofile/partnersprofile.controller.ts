@@ -27,9 +27,13 @@ export class PartnerProfileController extends Controller {
 
   @Get("/")
   public async getPartnerDetailsById(
-    @Query("id") id: string
-  ): Promise<PartnerProileDtoReq> {
-    return await this.partnerService.getUserById(id);
+    @Query("id") id?: string
+  ): Promise<PartnerProfileDtoRes | PartnerProfileDtoRes[]> {
+
+    if (id){
+      return this.partnerService.getUserById(id);
+    }
+    return await this.partnerService.getAllUsers();
   }
 
   @Post("/test")

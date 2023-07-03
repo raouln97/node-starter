@@ -46,42 +46,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"PartnerProileDtoReq": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"location": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
-					"rating": {
-						"type": "number",
-						"format": "double"
-					},
-					"image": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"email",
-					"description",
-					"location",
-					"rating",
-					"image"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"PartnerProfileDtoRes": {
 				"properties": {
 					"name": {
@@ -117,6 +81,42 @@
 					"description",
 					"location",
 					"registeredOn",
+					"rating",
+					"image"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PartnerProileDtoReq": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"location": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"rating": {
+						"type": "number",
+						"format": "double"
+					},
+					"image": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"email",
+					"description",
+					"location",
 					"rating",
 					"image"
 				],
@@ -312,7 +312,17 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/PartnerProileDtoReq"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/PartnerProfileDtoRes"
+										},
+										{
+											"items": {
+												"$ref": "#/components/schemas/PartnerProfileDtoRes"
+											},
+											"type": "array"
+										}
+									]
 								}
 							}
 						}
@@ -326,7 +336,7 @@
 					{
 						"in": "query",
 						"name": "id",
-						"required": true,
+						"required": false,
 						"schema": {
 							"type": "string"
 						}

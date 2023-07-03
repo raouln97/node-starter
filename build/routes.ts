@@ -30,19 +30,6 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "PartnerProileDtoReq": {
-        "dataType": "refObject",
-        "properties": {
-            "name": {"dataType":"string","required":true},
-            "email": {"dataType":"string","required":true},
-            "description": {"dataType":"string","required":true},
-            "location": {"dataType":"array","array":{"dataType":"string"},"required":true},
-            "rating": {"dataType":"double","required":true},
-            "image": {"dataType":"string","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "PartnerProfileDtoRes": {
         "dataType": "refObject",
         "properties": {
@@ -51,6 +38,19 @@ const models: TsoaRoute.Models = {
             "description": {"dataType":"string","required":true},
             "location": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "registeredOn": {"dataType":"datetime","required":true},
+            "rating": {"dataType":"double","required":true},
+            "image": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "PartnerProileDtoReq": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "description": {"dataType":"string","required":true},
+            "location": {"dataType":"array","array":{"dataType":"string"},"required":true},
             "rating": {"dataType":"double","required":true},
             "image": {"dataType":"string","required":true},
         },
@@ -199,7 +199,7 @@ export function RegisterRoutes(app: Router) {
 
             function PartnerProfileController_getPartnerDetailsById(request: any, response: any, next: any) {
             const args = {
-                    id: {"in":"query","name":"id","required":true,"dataType":"string"},
+                    id: {"in":"query","name":"id","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

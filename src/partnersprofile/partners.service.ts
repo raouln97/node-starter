@@ -14,11 +14,10 @@ export class PartnerProfileService {
     }
   }
 
-  public async getUserbyEmail(
-    email: string
-  ): Promise<PartnerProfileDtoRes | null> {
+  public async getAllUsers(
+  ): Promise<PartnerProfileDtoRes | null | PartnerProfileDtoRes[]> {
     try {
-      const user = await partnerData.findOne({ email });
+      const user = await partnerData.find();
       return user;
     } catch (error) {
       console.error("Error retrieving user:", error);
