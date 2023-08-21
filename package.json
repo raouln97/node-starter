@@ -7,7 +7,9 @@
     "tsoa:swagger": "tsoa spec",
     "tsoa:routes": "tsoa routes",
     "build": "npm run tsoa:routes && npm run tsoa:swagger && npm run tsc",
-    "start": "npm run build && nodemon src/index.ts",
+    "dev": "npm run build && nodemon src/index.ts",
+    "start": "node dist/index.js",
+    "postinstall": "tsc",
     "tsc": "tsc"
   },
   "author": "",
