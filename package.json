@@ -7,7 +7,7 @@
     "tsoa:swagger": "tsoa spec",
     "tsoa:routes": "tsoa routes",
     "build": "npm run tsoa:routes && npm run tsoa:swagger && npm run tsc",
-    "start": "npm run build && nodemon src/index.ts",
+    "start": "npm run build && ts-node src/index.ts",
     "tsc": "tsc",
     "postinstall": "tsc"
   },
@@ -26,6 +26,7 @@
     "otp-generator": "^4.0.1",
     "prettier": "^2.8.8",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.1",
     "tsoa": "^5.1.1",
     "typescript": "^5.1.3"
   },
