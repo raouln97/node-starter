@@ -25,6 +25,7 @@ export class PartnerProfileController extends Controller {
     this.partnerService = new PartnerProfileService();
   }
 
+  @Security("jwt", ["user"])
   @Get("/")
   public async getPartnerDetailsById(
     @Query("id") id?: string
@@ -55,6 +56,13 @@ export class PartnerProfileController extends Controller {
     @Body() body: PartnerProileDtoReq
   ): Promise<string> {
     return await this.partnerService.updatePartner(id, body);
+  }
+
+  @Get("/updatestatus")
+  public async updatePartnerVerificationStatus(
+    @Query("id") id: string,
+  ): Promise<string> {
+    return await this.partnerService.updatePartnerVerificationStatus(id);
   }
 
   @Delete("/delete")

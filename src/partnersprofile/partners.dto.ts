@@ -3,7 +3,6 @@ export interface PartnerProileDtoReq {
   email: string;
   description: string;
   location: string[];
-  rating: number;
   image: string;
 }
 
@@ -13,6 +12,12 @@ export interface PartnerProfileDtoRes {
   description: string;
   location: string[];
   registeredOn: Date;
-  rating: number;
+  verificationStatus: string;
   image: string;
+}
+
+export enum profileVerificationStatus {
+  VERIFIED = "VERIFIED",
+  PENDING_VERIFICATION = "PENDING_VERIFICATION",
+  BLOCKED = 'BLOCKED'
 }

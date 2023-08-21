@@ -6,6 +6,61 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"UserDtoRes": {
+				"properties": {
+					"userName": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"roles": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"userName",
+					"password",
+					"email",
+					"roles"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SignInRes": {
+				"properties": {
+					"userName": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"userName",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ForgotPasswordDTORes": {
+				"properties": {
+					"userName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"userName"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"PartnerServices": {
 				"properties": {
 					"name": {
@@ -67,9 +122,8 @@
 						"type": "string",
 						"format": "date-time"
 					},
-					"rating": {
-						"type": "number",
-						"format": "double"
+					"verificationStatus": {
+						"type": "string"
 					},
 					"image": {
 						"type": "string"
@@ -81,7 +135,7 @@
 					"description",
 					"location",
 					"registeredOn",
-					"rating",
+					"verificationStatus",
 					"image"
 				],
 				"type": "object",
@@ -104,10 +158,6 @@
 						},
 						"type": "array"
 					},
-					"rating": {
-						"type": "number",
-						"format": "double"
-					},
 					"image": {
 						"type": "string"
 					}
@@ -117,14 +167,31 @@
 					"email",
 					"description",
 					"location",
-					"rating",
 					"image"
 				],
 				"type": "object",
 				"additionalProperties": false
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"api_key": {
+				"type": "apiKey",
+				"name": "access_token",
+				"in": "query"
+			},
+			"tsoa_auth": {
+				"type": "oauth2",
+				"flows": {
+					"implicit": {
+						"authorizationUrl": "http://swagger.io/api/oauth/dialog",
+						"scopes": {
+							"write:pets": "modify things",
+							"read:pets": "read things"
+						}
+					}
+				}
+			}
+		}
 	},
 	"info": {
 		"title": "crudapptest",
@@ -136,6 +203,96 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/auth/signUp": {
+			"post": {
+				"operationId": "UserSignUp",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserDtoRes"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/signIn": {
+			"post": {
+				"operationId": "UserSignIn",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SignInRes"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/forgotPassword": {
+			"post": {
+				"operationId": "UserForgotPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ForgotPasswordDTORes"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/services": {
 			"get": {
 				"operationId": "GetPartnerServiceDetailsById",
@@ -331,7 +488,13 @@
 				"tags": [
 					"Partners"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"user"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "query",
@@ -447,6 +610,37 @@
 						}
 					}
 				}
+			}
+		},
+		"/partners/updatestatus": {
+			"get": {
+				"operationId": "UpdatePartnerVerificationStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Partners"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/partners/delete": {
