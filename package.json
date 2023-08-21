@@ -2,7 +2,7 @@
   "name": "crudapptest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index",
   "scripts": {
     "tsoa:swagger": "tsoa spec",
     "tsoa:routes": "tsoa routes",
