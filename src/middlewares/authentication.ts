@@ -1,43 +1,5 @@
-// import jwt from "jsonwebtoken";
-// import { config } from "../auth.config";
-
-// verifyToken = (req, res, next) => {
-//     let token = req.session.token;
-  
-//     if (!token) {
-//       return res.status(403).send({ message: "No token provided!" });
-//     }
-  
-//     jwt.verify(token,
-//               config.secret,
-//               (err: any, decoded: { id: any; }) => {
-//                 if (err) {
-//                   return res.status(401).send({
-//                     message: "Unauthorized!",
-//                   });
-//                 }
-//                 req.userId = decoded.id;
-//                 next();
-//               });
-//   };
-
-// import jwt from "jsonwebtoken";
-
-// module.exports = (req: any, res: any, next: any) => {
-//     try {
-//         const token = req.header("x-auth-token");
-//         if (!token) return res.status(403).send("Access denied.");
-
-//         const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
-//         req.user = decoded;
-//         next();
-//     } catch (error) {
-//         res.status(400).send("Invalid token");
-//     }
-// };
-
 import * as express from "express";
-import * as jwt from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 import { config } from "../auth.config";
 
 export function expressAuthentication(
@@ -71,7 +33,7 @@ export function expressAuthentication(
       if (!token) {
         reject(new Error("No token provided"));
       }
-      jwt.verify(token, config.secret, function (err: any, decoded: any) {
+      jsonwebtoken.verify(token, config.secret, function (err: any, decoded: any) {
         if (err) {
           reject(err);
         } else {
