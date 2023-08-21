@@ -1,4 +1,5 @@
 import express, { json, urlencoded } from "express";
+import {config} from "./config";
 import mongoose from "mongoose";
 import { RegisterRoutes } from "../build/routes";
 
@@ -20,7 +21,6 @@ try {
   console.log("Error: " + error);
 }
 
-const port = 9000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(config.server.port, () => {
+  console.log(`Server is running on port ${config.server.port}`);
 });
